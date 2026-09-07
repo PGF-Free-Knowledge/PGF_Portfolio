@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PGF · Demo 2 · XAI / SHAP</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f2f6f8;color:#193040}
+header{background:linear-gradient(120deg,#081927 0%,#123c51 70%,#185d72 100%);color:white;padding:26px 32px;border-radius:0 0 18px 18px}
+h1{margin:0;font-size:29px}.sub{margin-top:7px;font-size:13px;opacity:.88}
+main{max-width:1180px;margin:22px auto;padding:0 20px}
+.flow{display:flex;gap:8px;align-items:center;margin-bottom:16px;font-weight:800}.flow span{background:#eef4f6;padding:9px 13px;border-radius:8px}.arrow{color:#00798c}
+.panel{background:white;border:1px solid #dce4e8;border-radius:14px;padding:20px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}
+.k{font-size:11px;color:#607584;text-transform:uppercase;font-weight:700;letter-spacing:.04em}
+.v{font-size:28px;font-weight:800;color:#0f2a43;margin-top:7px}
+.barrow{display:grid;grid-template-columns:175px 1fr 70px;gap:10px;align-items:center;margin:10px 0}
+.name{font-size:13px;font-weight:700;text-align:right}.track{height:18px;background:#edf3f5;border-radius:10px;overflow:hidden}.bar{height:18px;background:#167f91;border-radius:10px}
+.num{font-size:12px;text-align:right;font-weight:700}
+select{width:100%;padding:11px;border:1px solid #cbd8de;border-radius:8px;background:white;font-size:14px}
+.callout{padding:14px;border-left:4px solid #167f91;background:#f2f7f8;border-radius:7px;line-height:1.5}
+.note{font-size:12px;color:#667984;line-height:1.45;margin-top:9px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.metric{background:#f5f8f9;border:1px solid #dce4e8;border-radius:10px;padding:13px}
+.contrib{margin-top:18px}.crow{display:grid;grid-template-columns:175px 1fr 72px;gap:10px;align-items:center;margin:9px 0}
+.ct{height:18px;background:#edf3f5;border-radius:9px;position:relative;overflow:hidden}
+.cp{height:18px;border-radius:9px;position:absolute;left:50%;transform:translateX(0);background:#5369e8}
+.cn{height:18px;border-radius:9px;position:absolute;right:50%;background:#ef5143}
+.axis{height:1px;background:#aebdc4;position:relative;margin:3px 0 9px}.axis:after{content:"0";position:absolute;left:calc(50% - 4px);top:5px;font-size:10px;color:#667984}
+.positive{color:#3557c7}.negative{color:#d13d34}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.barrow,.crow{grid-template-columns:125px 1fr 62px}}
+</style></head>
+<body>
+<header><h1>⚡ PGF · Gestión energética inteligente</h1><div class="sub">Paul Gálvez · USM · Demo 2 — IA explicable / SHAP</div></header>
+<main>
+<div class="flow"><span>PREDICCIÓN</span><span class="arrow">→</span><span>EXPLICACIÓN</span><span class="arrow">→</span><span>DECISIÓN</span></div>
+
+<section class="panel">
+<h2 style="margin-top:0">¿Por qué el modelo predijo eso?</h2>
+<p>Después de predecir, necesitamos entender <b>qué variables están influyendo</b> en la respuesta del modelo.</p>
+<div class="callout"><b>SHAP no reemplaza al ingeniero.</b> Permite abrir la “caja negra” y observar la contribución de cada variable a una predicción.</div>
+</section>
+
+<div class="grid">
+<section class="panel"><h3>1 · Visión global · |SHAP| medio</h3>
+<div class="barrow"><div class="name">it load kW</div><div class="track"><div class="bar" style="width:100.0%"></div></div><div class="num">53.052</div></div><div class="barrow"><div class="name">hvac kW</div><div class="track"><div class="bar" style="width:17.7%"></div></div><div class="num">9.414</div></div><div class="barrow"><div class="name">hour sin</div><div class="track"><div class="bar" style="width:3.7%"></div></div><div class="num">1.979</div></div><div class="barrow"><div class="name">temperature C</div><div class="track"><div class="bar" style="width:2.1%"></div></div><div class="num">1.140</div></div><div class="barrow"><div class="name">it load kW lag1</div><div class="track"><div class="bar" style="width:2.0%"></div></div><div class="num">1.082</div></div><div class="barrow"><div class="name">it load kW roll3</div><div class="track"><div class="bar" style="width:1.8%"></div></div><div class="num">0.961</div></div><div class="barrow"><div class="name">weekday sin</div><div class="track"><div class="bar" style="width:1.5%"></div></div><div class="num">0.818</div></div><div class="barrow"><div class="name">total consumption kW lag1</div><div class="track"><div class="bar" style="width:1.3%"></div></div><div class="num">0.702</div></div><div class="barrow"><div class="name">weekday cos</div><div class="track"><div class="bar" style="width:1.0%"></div></div><div class="num">0.528</div></div><div class="barrow"><div class="name">hour cos</div><div class="track"><div class="bar" style="width:0.9%"></div></div><div class="num">0.462</div></div>
+<div class="note">Magnitud media absoluta de SHAP sobre el conjunto de prueba. El orden muestra qué variables pesan más en las predicciones del Random Forest.</div>
+</section>
+
+<section class="panel">
+<h3>Lectura de ingeniería</h3>
+<div class="callout"><b>IT load domina claramente.</b><br>HVAC aparece como segunda variable. Las restantes tienen una influencia media mucho menor.</div>
+<div class="metrics">
+<div class="metric"><div class="k">Variable dominante</div><div class="v">IT load</div></div>
+<div class="metric"><div class="k">Segunda variable</div><div class="v">HVAC</div></div>
+</div>
+<div class="note"><b>Importante:</b> influencia en el modelo ≠ causalidad física.</div>
+</section>
+</div>
+
+<section class="panel" id="local">
+<h3>2 · Explicación local · una predicción concreta</h3>
+<label class="k" for="obs">Seleccionar observación del conjunto de prueba</label>
+<select id="obs">
+<option value="0">Observación 1 — índice 0</option>
+<option value="5">Observación 6 — índice 5</option>
+<option value="10">Observación 11 — índice 10</option>
+<option value="15">Observación 16 — índice 15</option>
+<option value="20" selected>Observación 21 — índice 20</option>
+</select>
+
+<div class="metrics">
+<div class="metric"><div class="k">Real</div><div class="v" id="real">—</div></div>
+<div class="metric"><div class="k">Predicho</div><div class="v" id="pred">—</div></div>
+</div>
+<div class="note" id="obslabel"></div>
+
+<div class="contrib">
+<h4 style="margin-bottom:5px">Contribución SHAP a la predicción</h4>
+<div class="axis"></div>
+<div id="contribs"></div>
+</div>
+
+<div class="callout" style="margin-top:18px">
+<b>Lectura:</b> la predicción parte de un valor base del modelo y las contribuciones SHAP la desplazan hacia arriba o hacia abajo. Para la observación seleccionada, <b>IT load</b> es la contribución dominante.
+</div>
+<div class="note">Valores calculados a partir de la ejecución del notebook <b>Procesoinicialpgfenergia2.ipynb</b>; se mantienen las 10 variables del modelo.</div>
+</section>
+
+<section class="panel">
+<h3>Guion de la demostración</h3>
+<ol>
+<li>“Primero predijimos el consumo.”</li>
+<li>“Ahora preguntamos por qué el modelo llegó a esa respuesta.”</li>
+<li>“Globalmente, IT load domina y HVAC es la segunda variable.”</li>
+<li>“Bajamos a una observación concreta y vemos qué variables empujaron la predicción.”</li>
+<li>“Con esta explicación podemos pasar de una predicción a una decisión técnica más informada.”</li>
+</ol>
+</section>
+</main>
+<script>
+const DATA={"0": {"obs": "Observación 1 — 03:00, 3 ene 2025", "real": 496.51, "pred": 536.52, "shap": {"it load kW": 71.531, "hvac kW": -15.292, "it load kW lag1": 2.102, "total consumption kW lag1": 1.609, "it load kW roll3": 1.808, "hour sin": -0.972, "hour cos": -0.126, "weekday sin": 0.873, "weekday cos": 0.73, "temperature C": -0.831}}, "5": {"obs": "Observación 6 — 08:00, 3 ene 2025", "real": 357.65, "pred": 381.49, "shap": {"it load kW": -64.754, "hvac kW": -29.212, "it load kW lag1": 0.446, "total consumption kW lag1": 0.864, "it load kW roll3": 0.331, "hour sin": -2.312, "hour cos": -0.102, "weekday sin": 0.866, "weekday cos": 0.17, "temperature C": 0.103}}, "10": {"obs": "Observación 11 — 13:00, 3 ene 2025", "real": 408.31, "pred": 436.71, "shap": {"it load kW": -31.322, "hvac kW": -7.959, "it load kW lag1": 0.183, "total consumption kW lag1": 0.162, "it load kW roll3": -0.148, "hour sin": 1.276, "hour cos": -1.351, "weekday sin": 0.715, "weekday cos": 0.261, "temperature C": -0.195}}, "15": {"obs": "Observación 16 — 18:00, 3 ene 2025", "real": 401.01, "pred": 418.33, "shap": {"it load kW": -54.026, "hvac kW": -6.372, "it load kW lag1": -0.006, "total consumption kW lag1": 0.453, "it load kW roll3": -0.817, "hour sin": 3.133, "hour cos": -0.373, "weekday sin": 0.72, "weekday cos": 0.441, "temperature C": 0.092}}, "20": {"obs": "Observación 21 — 23:00, 3 ene 2025", "real": 396.95, "pred": 421.38, "shap": {"it load kW": -46.692, "hvac kW": -8.712, "it load kW lag1": -1.414, "total consumption kW lag1": -0.436, "it load kW roll3": -0.793, "hour sin": 1.018, "hour cos": 1.607, "weekday sin": 0.798, "weekday cos": 0.338, "temperature C": 0.577}}};
+const BASE=475.0879516268179;
+const fmt=n=>Number(n).toLocaleString('es-CL',{minimumFractionDigits:2,maximumFractionDigits:2});
+function renderLocal(){
+  const d=DATA[obs.value];
+  real.textContent=fmt(d.real)+' kW'; pred.textContent=fmt(d.pred)+' kW'; obslabel.textContent=d.obs;
+  const entries=Object.entries(d.shap).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1]));
+  const max=Math.max(...entries.map(x=>Math.abs(x[1])));
+  contribs.innerHTML=entries.map(([name,v])=>{
+    const w=Math.max(1,Math.abs(v)/max*48);
+    const cls=v>=0?'positive':'negative';
+    const bar=v>=0?`<div class="cp" style="width:${w}%"></div>`:`<div class="cn" style="width:${w}%"></div>`;
+    return `<div class="crow"><div class="${cls}">${name}</div><div class="ct">${bar}</div><div class="num ${cls}">${v>=0?'+':''}${v.toFixed(2)} kW</div></div>`;
+  }).join('');
+}
+obs.addEventListener('change',renderLocal); renderLocal();
+</script>
+</body></html>

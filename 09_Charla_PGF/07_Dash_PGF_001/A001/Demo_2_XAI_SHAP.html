@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo 2 · XAI / SHAP</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#f2f6f8;color:#193040}
+header{background:#0f2a43;color:#fff;padding:22px 30px} h1{margin:0;font-size:27px} .sub{margin-top:5px;opacity:.82}
+nav{display:flex;gap:8px;background:#fff;padding:10px 20px;border-bottom:1px solid #dce4e8}
+button{border:0;background:#eef4f6;padding:10px 15px;border-radius:8px;color:#0f2a43;font-weight:700;cursor:pointer}
+main{max-width:1180px;margin:24px auto;padding:0 20px} .panel{background:#fff;border:1px solid #dce4e8;border-radius:12px;padding:20px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px} .k{font-size:12px;color:#607584;text-transform:uppercase;font-weight:700}
+.v{font-size:27px;font-weight:800;color:#0f2a43;margin-top:7px} .barrow{display:grid;grid-template-columns:150px 1fr 75px;align-items:center;gap:10px;margin:14px 0}
+.name{font-size:14px;font-weight:700;text-align:right} .track{height:20px;background:#edf3f5;border-radius:10px;overflow:hidden}
+.bar{height:20px;background:#00798c;border-radius:10px} .num{font-size:13px;text-align:right;font-weight:700}
+select{width:100%;padding:11px;border:1px solid #cbd8de;border-radius:8px;font-size:15px;background:#fff}
+.callout{padding:15px;border-left:4px solid #00798c;background:#f4f8f9;border-radius:7px;line-height:1.45}
+.note{font-size:12px;color:#667984;line-height:1.45;margin-top:10px} .badge{display:inline-block;background:#eef4f6;padding:5px 8px;border-radius:8px;font-weight:700;font-size:12px}
+.flow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:800} .flow span{background:#eef4f6;padding:10px 13px;border-radius:8px}
+.arrow{color:#00798c} @media(max-width:850px){.grid{grid-template-columns:1fr}.barrow{grid-template-columns:120px 1fr 65px}}
+</style></head>
+<body>
+<header><h1>Gestión energética · Dashboard demostrativo</h1><div class="sub">Paul Gálvez · USM · Demo 2 — XAI / SHAP</div></header>
+<nav><button onclick="document.getElementById('local').scrollIntoView({behavior:'smooth'})">Explicación local</button></nav>
+<main>
+<div class="flow"><span>PREDICCIÓN</span><span class="arrow">→</span><span>EXPLICACIÓN</span><span class="arrow">→</span><span>DECISIÓN</span></div>
+
+<section class="panel">
+<h2>¿Por qué el modelo predijo eso?</h2>
+<p>SHAP permite observar qué variables contribuyen a la predicción del modelo.</p>
+<span class="badge">Importancia global · conjunto de prueba</span>
+</section>
+
+<div class="grid">
+<section class="panel"><h3>Importancia global · |SHAP|</h3>
+<div class="barrow"><div class="name">it load roll3</div><div class="track"><div class="bar" style="width:11.2px"></div></div><div class="num">0.961</div></div><div class="barrow"><div class="name">it load lag1</div><div class="track"><div class="bar" style="width:12.6px"></div></div><div class="num">1.082</div></div><div class="barrow"><div class="name">temperature C</div><div class="track"><div class="bar" style="width:13.3px"></div></div><div class="num">1.140</div></div><div class="barrow"><div class="name">hour sin</div><div class="track"><div class="bar" style="width:23.1px"></div></div><div class="num">1.978</div></div><div class="barrow"><div class="name">hvac</div><div class="track"><div class="bar" style="width:110.0px"></div></div><div class="num">9.413</div></div><div class="barrow"><div class="name">it load</div><div class="track"><div class="bar" style="width:620.0px"></div></div><div class="num">53.052</div></div>
+<div class="note">La magnitud |SHAP| resume la contribución media de cada variable a las predicciones del conjunto analizado.</div>
+</section>
+
+<section class="panel"><h3>Lectura de ingeniería</h3>
+<div class="callout"><b>IT load domina la explicación.</b><br>HVAC aparece como segunda variable.<br>Las demás aportan mucho menos.</div>
+<div style="margin-top:18px"><div class="k">Variable dominante</div><div class="v">IT load</div></div>
+<div style="margin-top:18px"><div class="k">Segunda variable</div><div class="v">HVAC</div></div>
+</section>
+</div>
+
+<section id="local" class="panel">
+<h3>Explicación local · una predicción concreta</h3>
+<label class="k" for="obs">Seleccionar observación disponible</label>
+<select id="obs"><option value="0">Observación 1 — índice 0</option><option value="5">Observación 6 — índice 5</option><option value="10">Observación 11 — índice 10</option><option value="15">Observación 16 — índice 15</option><option value="20">Observación 21 — índice 20</option></select>
+<div style="margin-top:18px" class="callout">
+<strong>Explicación local:</strong> el material revisado confirma que el notebook genera explicaciones locales para estas observaciones, pero los valores numéricos de las contribuciones individuales no están disponibles en el material recuperado. Por rigor, no se inventan.
+</div>
+<p class="note">Este panel queda preparado para incorporar directamente la salida SHAP local del notebook.</p>
+</section>
+
+<section class="panel">
+<h3>Guion breve para la demo</h3>
+<ol>
+<li>“Ya sabemos cuánto predice el modelo.”</li>
+<li>“Ahora queremos saber qué variables están influyendo en esa predicción.”</li>
+<li>“Globalmente, IT load domina y HVAC aparece como segunda variable.”</li>
+<li>“Podemos bajar al nivel de una observación concreta y explicar esa predicción.”</li>
+<li>“SHAP describe contribuciones dentro del modelo; no demuestra causalidad.”</li>
+</ol>
+</section>
+</main>
+</body></html>

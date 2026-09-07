@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PGF · Demo 3 · Escenarios</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f2f6f8;color:#193040}
+header{background:linear-gradient(120deg,#081927 0%,#123c51 70%,#185d72 100%);color:white;padding:26px 32px;border-radius:0 0 18px 18px}
+h1{margin:0;font-size:29px}.sub{margin-top:7px;font-size:13px;opacity:.88}
+main{max-width:1180px;margin:22px auto;padding:0 20px}
+.flow{display:flex;gap:8px;align-items:center;margin-bottom:16px;font-weight:800}.flow span{background:#eef4f6;padding:9px 13px;border-radius:8px}.arrow{color:#00798c}
+.panel{background:white;border:1px solid #dce4e8;border-radius:14px;padding:20px;margin-bottom:18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:#f5f8f9;border:1px solid #dce4e8;border-radius:12px;padding:16px}
+.k{font-size:11px;color:#607584;text-transform:uppercase;font-weight:700;letter-spacing:.04em}
+.v{font-size:28px;font-weight:800;color:#0f2a43;margin-top:7px}
+select{width:100%;padding:11px;border:1px solid #cbd8de;border-radius:8px;background:white;font-size:14px}
+input[type=range]{width:100%;accent-color:#ef5143}.slider{margin:16px 0}.sliderline{display:flex;justify-content:space-between;align-items:center}
+.callout{padding:14px;border-left:4px solid #167f91;background:#f2f7f8;border-radius:7px;line-height:1.5}
+.result{font-size:15px;padding:13px;background:#eef7fa;border-radius:8px;margin-top:14px}
+.barwrap{height:290px;display:flex;align-items:flex-end;justify-content:center;gap:65px;border-bottom:1px solid #aebdc4;padding:15px 30px 0}
+.bargroup{width:170px;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.bar{width:130px;border-radius:7px 7px 0 0;transition:.2s}.basebar{background:#5f6eea}.scenbar{background:#ef5143}
+.barlabel{font-weight:800;margin-bottom:5px}.xlabel{margin-top:8px;font-size:12px;color:#607584}
+.note{font-size:12px;color:#667984;line-height:1.45;margin-top:9px}
+.good{color:#167f91}.bad{color:#d13d34}
+@media(max-width:850px){.cards{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><h1>⚡ PGF · Gestión energética inteligente</h1><div class="sub">Paul Gálvez · USM · Demo 3 — Exploración de escenarios</div></header>
+<main>
+<div class="flow"><span>PREDICCIÓN</span><span class="arrow">→</span><span>EXPLICACIÓN</span><span class="arrow">→</span><span>ESCENARIO</span><span class="arrow">→</span><span>DECISIÓN</span></div>
+
+<section class="panel">
+<h2 style="margin-top:0">¿Qué pasa si cambiamos una condición de operación?</h2>
+<p>Usamos el mismo modelo predictivo para explorar una alternativa antes de actuar sobre el sistema.</p>
+<div class="callout"><b>No estamos demostrando un ahorro físico.</b> Estamos mostrando cómo un modelo puede apoyar la evaluación previa de una alternativa operacional.</div>
+</section>
+
+<section class="panel">
+<h3>1 · Condición de referencia</h3>
+<div class="two">
+<div><div class="k">IT Load base</div><div class="v">239.74 kW</div></div>
+<div><div class="k">HVAC base</div><div class="v">130.09 kW</div></div>
+</div>
+<div class="note">Las demás variables se mantienen en el contexto de la observación 21 del conjunto de prueba, para aislar la exploración de IT Load y HVAC.</div>
+</section>
+
+<section class="panel">
+<h3>2 · Selección del escenario</h3>
+<select id="preset">
+<option>Manual</option>
+<option>Reducir HVAC 10 %</option>
+<option>Reducir IT Load 10 %</option>
+<option>Aumentar IT Load 10 %</option>
+<option>Aumentar HVAC 10 %</option>
+</select>
+
+<div class="two">
+<div class="slider"><div class="sliderline"><span class="k">IT Load [kW]</span><b id="itv"></b></div><input id="it" type="range" min="180" max="320" step="0.1" value="239.7"></div>
+<div class="slider"><div class="sliderline"><span class="k">HVAC [kW]</span><b id="hvacv"></b></div><input id="hvac" type="range" min="90" max="170" step="0.1" value="130.1"></div>
+</div>
+
+<div class="cards">
+<div class="card"><div class="k">Base</div><div class="v" id="basep">—</div><div class="note">referencia</div></div>
+<div class="card"><div class="k">Escenario</div><div class="v" id="scenp">—</div><div class="note">modelo</div></div>
+<div class="card"><div class="k">Δ</div><div class="v" id="delta">—</div><div class="note">escenario − base</div></div>
+<div class="card"><div class="k">Variación</div><div class="v" id="pct">—</div><div class="note">respecto de la base</div></div>
+</div>
+
+<div class="barwrap">
+<div class="bargroup"><div class="barlabel" id="blab">421.38 kW</div><div class="bar basebar" id="bbar" style="height:72%"></div><div class="xlabel">Base</div></div>
+<div class="bargroup"><div class="barlabel" id="slab">421.38 kW</div><div class="bar scenbar" id="sbar" style="height:72%"></div><div class="xlabel">Escenario</div></div>
+</div>
+
+<div class="result" id="result">Resultado: el escenario coincide con la condición de referencia.</div>
+</section>
+
+<section class="panel">
+<h3>3 · Lectura para la charla</h3>
+<ol>
+<li>Partimos de una condición conocida.</li>
+<li>Modificamos una variable operacional.</li>
+<li>El modelo estima la respuesta esperada.</li>
+<li>Comparamos contra la referencia.</li>
+<li>La decisión se toma con esta evidencia <b>junto con</b> restricciones y conocimiento de ingeniería.</li>
+</ol>
+<div class="note"><b>Alcance:</b> escenario demostrativo con datos sintéticos. No representa ahorro validado de Oil Malal ni sustituye una evaluación energética/económica real.</div>
+</section>
+</main>
+<script>
+const BASE=421.38;
+const A={"Base": 421.38, "Reducir HVAC 10 %": 415.61, "Reducir IT Load 10 %": 409.17, "Aumentar IT Load 10 %": 435.32, "Aumentar HVAC 10 %": 425.97};
+const IT0=239.7431363068345;
+const HVAC0=130.087830981677;
+
+function pred(it,hvac){
+  const di=it-IT0, dh=hvac-HVAC0;
+  const pit=(A["Aumentar IT Load 10 %"]-A["Reducir IT Load 10 %"])/(0.2*IT0);
+  const ph=(A["Aumentar HVAC 10 %"]-A["Reducir HVAC 10 %"])/(0.2*HVAC0);
+  return BASE+pit*di+ph*dh+0.000015*di*di-0.00001*dh*dh;
+}
+function fmt(x){return x.toLocaleString('es-CL',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function update(){
+  const p=pred(+it.value,+hvac.value), d=p-BASE, pct=d/BASE*100;
+  itv.textContent=fmt(+it.value); hvacv.textContent=fmt(+hvac.value);
+  basep.textContent=fmt(BASE)+' kW'; scenp.textContent=fmt(p)+' kW';
+  delta.textContent=(d>=0?'+':'')+fmt(d)+' kW'; pctEl=pct;
+  document.getElementById('pct').textContent=(pct>=0?'+':'')+fmt(pct)+' %';
+  blab.textContent=fmt(BASE)+' kW'; slab.textContent=fmt(p)+' kW';
+  const h1=Math.max(20,Math.min(95,BASE/600*100)), h2=Math.max(20,Math.min(95,p/600*100));
+  bbar.style.height=h1+'%'; sbar.style.height=h2+'%';
+  if(Math.abs(d)<0.005) result.textContent='Resultado: el escenario coincide con la condición de referencia.';
+  else if(d<0) result.innerHTML='Resultado: el escenario reduce la predicción en <b>'+fmt(Math.abs(d))+' kW ('+fmt(Math.abs(pct))+' %)</b> respecto de la base.';
+  else result.innerHTML='Resultado: el escenario aumenta la predicción en <b>'+fmt(d)+' kW ('+fmt(pct)+' %)</b> respecto de la base.';
+}
+const pctEl=0;
+function applyPreset(){
+  const v=preset.value;
+  it.value=IT0.toFixed(1); hvac.value=HVAC0.toFixed(1);
+  if(v==='Reducir HVAC 10 %') hvac.value=(HVAC0*.9).toFixed(1);
+  if(v==='Reducir IT Load 10 %') it.value=(IT0*.9).toFixed(1);
+  if(v==='Aumentar IT Load 10 %') it.value=(IT0*1.1).toFixed(1);
+  if(v==='Aumentar HVAC 10 %') hvac.value=(HVAC0*1.1).toFixed(1);
+  update();
+}
+it.addEventListener('input',()=>{preset.value='Manual';update()});
+hvac.addEventListener('input',()=>{preset.value='Manual';update()});
+preset.addEventListener('change',applyPreset);
+update();
+</script>
+</body></html>

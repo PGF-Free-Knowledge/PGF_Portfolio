@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard energético PGF · Predicción corregida</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f2f6f8;color:#193040}
+header{background:#0f2a43;color:#fff;padding:22px 30px}h1{margin:0;font-size:26px}
+.sub{opacity:.8;margin-top:5px}nav{display:flex;gap:8px;background:#fff;padding:10px 20px;position:sticky;top:0;border-bottom:1px solid #dce4e8;flex-wrap:wrap}
+button{border:0;background:#eef4f6;padding:10px 14px;border-radius:8px;cursor:pointer;color:#0f2a43;font-weight:700}
+button.active{background:#00798c;color:white}main{max-width:1180px;margin:24px auto;padding:0 20px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{background:white;border:1px solid #dce4e8;border-radius:12px;padding:18px}
+.k{font-size:12px;color:#607584;text-transform:uppercase;font-weight:700}.v{font-size:28px;font-weight:800;margin-top:8px;color:#0f2a43}
+.panel{background:#fff;border:1px solid #dce4e8;border-radius:12px;padding:18px;margin-top:18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.note{font-size:12px;color:#667984;margin-top:10px}
+svg{width:100%;height:auto;display:block}.legend{display:flex;gap:18px;font-size:13px;margin:8px 0 0}
+.badge{display:inline-block;background:#eef4f6;border-radius:8px;padding:5px 8px;font-weight:700}
+select{padding:9px;border:1px solid #ccd9df;border-radius:8px;font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;border-bottom:1px solid #e5ecef;text-align:right}th:first-child,td:first-child{text-align:left}
+@media(max-width:800px){.grid,.two{grid-template-columns:1fr 1fr}}
+</style></head>
+<body>
+<header><h1>Gestión energética · Dashboard demostrativo</h1><div class="sub">Paul Gálvez · USM · Demo 1 — Predicción y validación</div></header>
+<nav>
+<button class="tab active" data-v="pred">Predicción</button>
+<button class="tab" data-v="res">Residuos</button>
+<button class="tab" data-v="detalle">Detalle de prueba</button>
+</nav>
+<main>
+<section id="pred">
+<h2>Predicción · Random Forest</h2>
+<div class="grid">
+<div class="card"><div class="k">Modelo</div><div class="v">Random Forest</div></div>
+<div class="card"><div class="k">R²</div><div class="v">0,911</div></div>
+<div class="card"><div class="k">MAE</div><div class="v">19,406 kW</div></div>
+<div class="card"><div class="k">RMSE</div><div class="v">23,353 kW</div></div>
+</div>
+<div class="panel">
+<h3>Real vs. Predicho · conjunto de prueba</h3>
+<svg viewBox="0 0 820 300" role="img" aria-label="Real versus predicho">
+<rect width="820" height="300" fill="#fff"/>
+<polyline points="42.0,118.0 75.8,81.8 109.6,71.3 143.4,84.7 177.2,42.0 211.0,208.0 244.8,172.3 278.6,196.3 312.4,158.4 346.2,162.5 380.0,175.2 413.8,61.9 447.6,152.3 481.4,162.3 515.2,113.4 549.0,179.9 582.8,52.0 616.6,147.7 650.4,83.8 684.2,86.3 718.0,182.5" fill="none" stroke="#00798c" stroke-width="3"/>
+<polyline points="42.0,92.1 75.8,85.0 109.6,73.5 143.4,95.5 177.2,76.6 211.0,192.6 244.8,161.7 278.6,177.8 312.4,154.1 346.2,155.2 380.0,156.8 413.8,83.8 447.6,157.7 481.4,149.0 515.2,108.6 549.0,168.7 582.8,74.4 616.6,155.3 650.4,77.5 684.2,82.2 718.0,166.7" fill="none" stroke="#0f2a43" stroke-width="3"/>
+<circle cx="42.0" cy="118.0" r="3.5"/><circle cx="75.8" cy="81.8" r="3.5"/><circle cx="109.6" cy="71.3" r="3.5"/><circle cx="143.4" cy="84.7" r="3.5"/><circle cx="177.2" cy="42.0" r="3.5"/><circle cx="211.0" cy="208.0" r="3.5"/><circle cx="244.8" cy="172.3" r="3.5"/><circle cx="278.6" cy="196.3" r="3.5"/><circle cx="312.4" cy="158.4" r="3.5"/><circle cx="346.2" cy="162.5" r="3.5"/><circle cx="380.0" cy="175.2" r="3.5"/><circle cx="413.8" cy="61.9" r="3.5"/><circle cx="447.6" cy="152.3" r="3.5"/><circle cx="481.4" cy="162.3" r="3.5"/><circle cx="515.2" cy="113.4" r="3.5"/><circle cx="549.0" cy="179.9" r="3.5"/><circle cx="582.8" cy="52.0" r="3.5"/><circle cx="616.6" cy="147.7" r="3.5"/><circle cx="650.4" cy="83.8" r="3.5"/><circle cx="684.2" cy="86.3" r="3.5"/><circle cx="718.0" cy="182.5" r="3.5"/><circle cx="42.0" cy="92.1" r="3.5"/><circle cx="75.8" cy="85.0" r="3.5"/><circle cx="109.6" cy="73.5" r="3.5"/><circle cx="143.4" cy="95.5" r="3.5"/><circle cx="177.2" cy="76.6" r="3.5"/><circle cx="211.0" cy="192.6" r="3.5"/><circle cx="244.8" cy="161.7" r="3.5"/><circle cx="278.6" cy="177.8" r="3.5"/><circle cx="312.4" cy="154.1" r="3.5"/><circle cx="346.2" cy="155.2" r="3.5"/><circle cx="380.0" cy="156.8" r="3.5"/><circle cx="413.8" cy="83.8" r="3.5"/><circle cx="447.6" cy="157.7" r="3.5"/><circle cx="481.4" cy="149.0" r="3.5"/><circle cx="515.2" cy="108.6" r="3.5"/><circle cx="549.0" cy="168.7" r="3.5"/><circle cx="582.8" cy="74.4" r="3.5"/><circle cx="616.6" cy="155.3" r="3.5"/><circle cx="650.4" cy="77.5" r="3.5"/><circle cx="684.2" cy="82.2" r="3.5"/><circle cx="718.0" cy="166.7" r="3.5"/>
+<line x1="42" y1="258" x2="778" y2="258" stroke="#cbd7dc"/>
+<text x="42" y="286" font-size="12" fill="#607584">1</text><text x="758" y="286" font-size="12" fill="#607584">21</text>
+</svg>
+<div class="legend"><span>● Real</span><span>● Predicho</span><span class="badge">21 observaciones de prueba</span></div>
+<div class="note">Los valores corresponden al Random Forest aplicado al conjunto de prueba del notebook. El dataset de la demostración es sintético.</div>
+</div>
+<div class="two">
+<div class="card"><div class="k">Interpretación</div><p>El modelo sigue la señal real y captura su comportamiento general, pero mantiene error residual.</p></div>
+<div class="card"><div class="k">Referencia</div><p>En el mismo notebook, la Regresión Lineal obtiene R² = 0,972; por tanto, no se debe afirmar que Random Forest sea superior sin una comparación homogénea.</p></div>
+</div>
+</section>
+
+<section id="res" style="display:none">
+<h2>Diagnóstico de residuos · Random Forest</h2>
+<div class="two">
+<div class="panel">
+<h3>Residuos vs. predicción</h3>
+<svg viewBox="0 0 820 300">
+<rect width="820" height="300" fill="#fff"/>
+<line x1="42" y1="136.9" x2="778" y2="136.9" stroke="#c0392b" stroke-dasharray="7 5"/>
+<polyline points="42.0,208.0 75.8,128.2 109.6,130.9 143.4,107.2 177.2,42.0 211.0,179.3 244.8,165.9 278.6,187.9 312.4,148.6 346.2,156.9 380.0,187.4 413.8,77.0 447.6,122.3 481.4,173.3 515.2,150.2 549.0,167.7 582.8,75.6 616.6,116.1 650.4,154.3 684.2,148.0 718.0,180.3" fill="none" stroke="#00798c" stroke-width="2.5"/>
+<text x="42" y="286" font-size="12" fill="#607584">1</text><text x="758" y="286" font-size="12" fill="#607584">21</text>
+</svg>
+<div class="note">Residuo = Real − Predicho. Rango observado: -40.01 a 53.44 kW.</div>
+</div>
+<div class="panel">
+<h3>Lectura rápida</h3>
+<div class="card"><div class="k">Error medio absoluto</div><div class="v">19,406 kW</div></div>
+<div class="card" style="margin-top:12px"><div class="k">Error cuadrático medio</div><div class="v">23,353 kW</div></div>
+<div class="note">El diagnóstico de residuos complementa R²: permite ver magnitud y comportamiento del error, no solo el ajuste global.</div>
+</div>
+</div>
+</section>
+
+<section id="detalle" style="display:none">
+<h2>Detalle · 21 observaciones de prueba</h2>
+<div class="panel">
+<label for="obs"><b>Seleccionar observación:</b></label>
+<select id="obs"><option value="0">Observación 1</option><option value="1">Observación 2</option><option value="2">Observación 3</option><option value="3">Observación 4</option><option value="4">Observación 5</option><option value="5">Observación 6</option><option value="6">Observación 7</option><option value="7">Observación 8</option><option value="8">Observación 9</option><option value="9">Observación 10</option><option value="10">Observación 11</option><option value="11">Observación 12</option><option value="12">Observación 13</option><option value="13">Observación 14</option><option value="14">Observación 15</option><option value="15">Observación 16</option><option value="16">Observación 17</option><option value="17">Observación 18</option><option value="18">Observación 19</option><option value="19">Observación 20</option><option value="20">Observación 21</option></select>
+<div class="grid" style="margin-top:16px">
+<div class="card"><div class="k">Real</div><div class="v" id="rv"></div></div>
+<div class="card"><div class="k">Predicho</div><div class="v" id="pv"></div></div>
+<div class="card"><div class="k">Residuo</div><div class="v" id="ev"></div></div>
+<div class="card"><div class="k">Error absoluto</div><div class="v" id="av"></div></div>
+</div>
+<table style="margin-top:18px"><thead><tr><th>Obs.</th><th>Real (kW)</th><th>Predicho (kW)</th><th>Residuo (kW)</th></tr></thead>
+<tbody><tr><td>1</td><td>496.508</td><td>536.520</td><td>-40.012</td></tr><tr><td>2</td><td>552.472</td><td>547.544</td><td>+4.928</td></tr><tr><td>3</td><td>568.590</td><td>565.214</td><td>+3.375</td></tr><tr><td>4</td><td>547.994</td><td>531.245</td><td>+16.750</td></tr><tr><td>5</td><td>613.844</td><td>560.400</td><td>+53.445</td></tr><tr><td>6</td><td>357.655</td><td>381.489</td><td>-23.834</td></tr><tr><td>7</td><td>412.796</td><td>429.133</td><td>-16.338</td></tr><tr><td>8</td><td>375.635</td><td>404.338</td><td>-28.703</td></tr><tr><td>9</td><td>434.233</td><td>440.812</td><td>-6.578</td></tr><tr><td>10</td><td>427.915</td><td>439.149</td><td>-11.234</td></tr><tr><td>11</td><td>408.307</td><td>436.708</td><td>-28.401</td></tr><tr><td>12</td><td>583.083</td><td>549.350</td><td>+33.733</td></tr><tr><td>13</td><td>443.576</td><td>435.357</td><td>+8.219</td></tr><tr><td>14</td><td>428.218</td><td>448.714</td><td>-20.496</td></tr><tr><td>15</td><td>503.665</td><td>511.111</td><td>-7.446</td></tr><tr><td>16</td><td>401.010</td><td>418.334</td><td>-17.324</td></tr><tr><td>17</td><td>598.374</td><td>563.819</td><td>+34.556</td></tr><tr><td>18</td><td>450.714</td><td>438.959</td><td>+11.755</td></tr><tr><td>19</td><td>549.284</td><td>559.057</td><td>-9.773</td></tr><tr><td>20</td><td>545.539</td><td>551.746</td><td>-6.207</td></tr><tr><td>21</td><td>396.948</td><td>421.378</td><td>-24.429</td></tr></tbody></table>
+</div>
+</section>
+</main>
+<script>
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ b.classList.add('active');
+ document.querySelectorAll('main section').forEach(v=>v.style.display='none');
+ document.getElementById(b.dataset.v).style.display='block';
+});
+const R=[496.5080443633704, 552.4719749331391, 568.5895567467327, 547.9940650824199, 613.8441717059865, 357.65466284813164, 412.795501691437, 375.6354195198239, 434.2334728555383, 427.9148664610524, 408.3072350436408, 583.0826185076188, 443.5760116140351, 428.2178116271993, 503.66535406369246, 401.00981891387954, 598.3744603536849, 450.7136960152433, 549.2836961864567, 545.5391810889961, 396.9484399134155],P=[536.5198532340519, 547.543571318397, 565.2144762897077, 531.2445195731625, 560.3996016643449, 381.4891267600201, 429.133171637454, 404.33809237555084, 440.8118219307422, 439.1489425800548, 436.708024482253, 549.349989038142, 435.35746217545056, 448.7135192175867, 511.111350423669, 418.3338334316566, 563.8187692207451, 438.95896113813353, 559.0567600993489, 551.746438429103, 421.37784793747727],E=[-40.01180887068148, 4.9284036147421375, 3.3750804570249784, 16.74954550925736, 53.444570041641555, -23.834463911888463, -16.337669946017, -28.702672855726917, -6.578349075203903, -11.234076119002395, -28.400789438612208, 33.73262946947682, 8.218549438584546, -20.495707590387383, -7.4459963599765615, -17.324014517777073, 34.55569113293973, 11.75473487710974, -9.773063912892212, -6.207257340106935, -24.429408024061786];
+function upd(){
+ const i=+document.getElementById('obs').value;
+ document.getElementById('rv').textContent=R[i].toFixed(3)+' kW';
+ document.getElementById('pv').textContent=P[i].toFixed(3)+' kW';
+ document.getElementById('ev').textContent=(E[i]>=0?'+':'')+E[i].toFixed(3)+' kW';
+ document.getElementById('av').textContent=Math.abs(E[i]).toFixed(3)+' kW';
+}
+document.getElementById('obs').addEventListener('change',upd); upd();
+</script>
+</body></html>
