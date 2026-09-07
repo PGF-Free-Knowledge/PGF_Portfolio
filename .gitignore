@@ -12,3 +12,18 @@ env/
 
 # VS Code
 .vscode/
+# Repositorios Git internos
+00_Perfil_GitHub/.git/
+01_Gestion_Energetica/Proyecto_ML_Energia_PGF/.git/
+02_IA_Machine_Learning/AI-Agent-Engineering/.git/
+02_IA_Machine_Learning/aprendizaje-de-maquinas/.git/
+03_Automatizacion_SCADA/ControlAccesoUSM/.git/
+03_Automatizacion_SCADA/hydroturbine-scada-platform/.git/
+04_Instrumentacion_Adquisicion/H2GREEN_Ensayos/.git/
+05_Dashboards_Analitica/TFM_EDAR/.git/
+06_Investigacion_Proyectos/proyecto-glaciares/.git/
+06_Investigacion_Proyectos/TFM_Graficos_ACV/.git/
+07_Formacion_Desarrollo/aprendiendo-python-con-pgf/.git/
+07_Formacion_Desarrollo/aprendiendo-r-con-pgf/.git/
+08_Aplicaciones/reserva-sala-b355/.git/
+10_Charla_De_Medir_a_Predecir/.git/

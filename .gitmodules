@@ -1,0 +1,42 @@
+[submodule "03_Automatizacion_SCADA/ControlAccesoUSM"]
+	path = 03_Automatizacion_SCADA/ControlAccesoUSM
+	url = https://github.com/PGF-Free-Knowledge/control-acceso-b409.git
+[submodule "04_Instrumentacion_Adquisicion/H2GREEN_Ensayos"]
+	path = 04_Instrumentacion_Adquisicion/H2GREEN_Ensayos
+	url = https://github.com/PGF-Free-Knowledge/H2GREEN-Ensayos.git
+[submodule "05_Dashboards_Analitica/TFM_EDAR"]
+	path = 05_Dashboards_Analitica/TFM_EDAR
+	url = https://github.com/PGF-Free-Knowledge/tfm-edar-dashboard.git
+[submodule "06_Investigacion_Proyectos/TFM_Graficos_ACV"]
+	path = 06_Investigacion_Proyectos/TFM_Graficos_ACV
+	url = https://github.com/PGF-Free-Knowledge/TFM_ACV_Cerceda_Vedra.git
+[submodule "06_Investigacion_Proyectos/proyecto-glaciares"]
+	path = 06_Investigacion_Proyectos/proyecto-glaciares
+	url = https://github.com/PGF-Free-Knowledge/proyecto-glaciares.git
+[submodule "01_Gestion_Energetica/Proyecto_ML_Energia_PGF"]
+	path = 01_Gestion_Energetica/Proyecto_ML_Energia_PGF
+	url = https://github.com/PGF-Free-Knowledge/Proyecto_ML_Energia_PGF.git
+[submodule "02_IA_Machine_Learning/AI-Agent-Engineering"]
+	path = 02_IA_Machine_Learning/AI-Agent-Engineering
+	url = https://github.com/PGF-Free-Knowledge/AI-Agent-Engineering.git
+[submodule "02_IA_Machine_Learning/aprendizaje-de-maquinas"]
+	path = 02_IA_Machine_Learning/aprendizaje-de-maquinas
+	url = https://github.com/PGF-Free-Knowledge/aprendizaje-de-maquinas.git
+[submodule "03_Automatizacion_SCADA/hydroturbine-scada-platform"]
+	path = 03_Automatizacion_SCADA/hydroturbine-scada-platform
+	url = https://github.com/PGF-Free-Knowledge/hydroturbine-scada-platform.git
+[submodule "07_Formacion_Desarrollo/aprendiendo-python-con-pgf"]
+	path = 07_Formacion_Desarrollo/aprendiendo-python-con-pgf
+	url = https://github.com/PGF-Free-Knowledge/aprendiendo-python-con-pgf.git
+[submodule "07_Formacion_Desarrollo/aprendiendo-r-con-pgf"]
+	path = 07_Formacion_Desarrollo/aprendiendo-r-con-pgf
+	url = https://github.com/PGF-Free-Knowledge/aprendiendo-r-con-pgf.git
+[submodule "08_Aplicaciones/reserva-sala-b355"]
+	path = 08_Aplicaciones/reserva-sala-b355
+	url = https://github.com/PGF-Free-Knowledge/reserva-sala-b355.git
+[submodule "10_Charla_De_Medir_a_Predecir"]
+	path = 10_Charla_De_Medir_a_Predecir
+	url = https://github.com/PGF-Free-Knowledge/Charla_De_Medir_a_Predecir.git
+[submodule "00_Perfil_GitHub"]
+	path = 00_Perfil_GitHub
+	url = https://github.com/PGF-Free-Knowledge/PGF-Free-Knowledge.git
