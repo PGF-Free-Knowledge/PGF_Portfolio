@@ -37,6 +37,3 @@
 [submodule "10_Charla_De_Medir_a_Predecir"]
 	path = 10_Charla_De_Medir_a_Predecir
 	url = https://github.com/PGF-Free-Knowledge/Charla_De_Medir_a_Predecir.git
-[submodule "00_Perfil_GitHub"]
-	path = 00_Perfil_GitHub
-	url = https://github.com/PGF-Free-Knowledge/PGF-Free-Knowledge.git
