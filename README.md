@@ -33,7 +33,7 @@ PGF_Portfolio/
 ├── 07_Formacion_Desarrollo/
 ├── 08_Aplicaciones/
 ├── 09_Charla_PGF/
-└── 10_Charla_De_Medir_a_Predecir/
+└── 10_Analitica_Energetica_y_Prediccion/
 ```
 
 ## 01 — Gestión Energética
@@ -154,7 +154,7 @@ Incluye:
 
 ## 10 — De Medir a Predecir
 
-`10_Charla_De_Medir_a_Predecir`
+`10_Analitica_Energetica_y_Prediccion`
 
 Área dedicada a la charla **De Medir a Predecir**.
 
@@ -391,7 +391,7 @@ OPTIMIZAR
 | 07 | Formación y Desarrollo | `07_Formacion_Desarrollo` |
 | 08 | Aplicaciones | `08_Aplicaciones` |
 | 09 | Charla PGF | `09_Charla_PGF` |
-| 10 | De Medir a Predecir | `10_Charla_De_Medir_a_Predecir` |
+| 10 | De Medir a Predecir | `10_Analitica_Energetica_y_Prediccion` |
 
 ---
 
