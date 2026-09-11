@@ -35,5 +35,5 @@
 	path = 08_Aplicaciones/reserva-sala-b355
 	url = https://github.com/PGF-Free-Knowledge/reserva-sala-b355.git
 [submodule "10_Charla_De_Medir_a_Predecir"]
-	path = 10_Charla_De_Medir_a_Predecir
+	path = 10_Analitica_Energetica_y_Prediccion
 	url = https://github.com/PGF-Free-Knowledge/Charla_De_Medir_a_Predecir.git
